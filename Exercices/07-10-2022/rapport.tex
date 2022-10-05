@@ -1,0 +1,114 @@
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\documentclass[12pt,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{minted}
+\usepackage{babel}
+\usepackage[babel=true]{microtype}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Projet Programmation 1}
+\author{Azammat CHARAF ZADAH}
+\date{}
+\date{}
+\begin{document}
+\maketitle
+\begin{center}
+    \textit{Devoir pour le 07 Octobre 2022}
+\end{center}
+
+\section{Implémentation}
+\begin{minted}[breaklines]{ocaml}
+type 'a my_list = 
+	| Nil
+	| Cons of 'a * 'a my_list;;
+
+(*** FONCTIONS ***)
+
+let string_of_list str_fun l = 
+	let rec string_content = function
+    	| Nil  -> ""
+    	| Cons(x,Nil)  -> (str_fun x)
+    	| Cons(x,l) -> (str_fun x) ^ ", " ^ (string_content l) 
+  	in "[" ^ (string_content l) ^ "]";;
+
+
+let hd l = match l with
+	| Nil -> failwith "Liste vide"
+	| Cons(x,_) -> x;;
+
+
+let tl l = match l with
+	| Nil -> Nil
+	| Cons(_,q) -> q;;
+
+
+let rec length l = match l with
+	| Nil -> 0
+	| Cons(_,q) -> 1 + length q;;
+
+
+let rec map f l = match l with
+	| Nil -> Nil
+        | Cons(x,q) -> Cons(f x, map f q);;
+
+let string_of_nat_list = string_of_list string_of_int;;
+let string_of_string_list = string_of_list (fun x -> x);;
+
+(*** TESTS ***)
+
+let empty = Nil;;
+let one = Cons("a",Nil);;
+let lst = Cons(1,Cons(3,Cons(5,Cons(10,Cons(15,Cons(21,Cons(28,Cons(36,Cons(45,Cons(55,Nil))))))))));;
+
+let test_hd () = 
+        Printf.printf "Tête de %s : %s.\n" (string_of_string_list one) (hd one);
+        Printf.printf "Tête de %s : %d.\n\n" (string_of_nat_list lst) (hd lst);;
+
+let test_tl () = 
+        Printf.printf "Queue de %s : %s.\n" (string_of_string_list one) (string_of_string_list (tl one));
+        Printf.printf "Queue de %s : %s.\n\n" (string_of_nat_list lst) (string_of_nat_list (tl lst));;
+
+let test_length () = 
+        Printf.printf "Taille de %s : %d.\n" (string_of_string_list one) (length one);
+        Printf.printf "Taille de %s : %d.\n" (string_of_nat_list lst) (length lst);
+        Printf.printf "Taille de %s : %d.\n\n" (string_of_string_list empty) (length empty);;
+
+let test_map ()= 
+        Printf.printf "Map de (x -> xx) sur %s : %s.\n" (string_of_string_list one) (string_of_string_list (map (fun s -> s ^ s) one));
+        Printf.printf "Map de (x -> 2x) sur %s : %s.\n" (string_of_nat_list lst) (string_of_nat_list (map (fun n -> 2 * n) lst));
+        Printf.printf "Map de (x -> 2x) sur %s : %s.\n\n" (string_of_nat_list empty) (string_of_nat_list (map (fun n -> 2 * n) empty));;
+
+let main () =
+        test_hd(); test_tl(); test_length(); test_map();;
+
+main();;
+\end{minted}
+\newpage
+\section{Résultat}
+\begin{minted}[breaklines]{console}
+Tête de [a] : a.
+Tête de [1, 3, 5, 10, 15, 21, 28, 36, 45, 55] : 1.
+
+Queue de [a] : [].
+Queue de [1, 3, 5, 10, 15, 21, 28, 36, 45, 55] : [3, 5, 10, 15, 21, 28, 36, 45, 55].
+
+Taille de [a] : 1.
+Taille de [1, 3, 5, 10, 15, 21, 28, 36, 45, 55] : 10.
+Taille de [] : 0.
+
+Map de (x -> xx) sur [a] : [aa].
+Map de (x -> 2x) sur [1, 3, 5, 10, 15, 21, 28, 36, 45, 55] : [2, 6, 10, 20, 30, 42, 56, 72, 90, 110].
+Map de (x -> 2x) sur [] : [].
+\end{minted}
+
+
+\end{document}
