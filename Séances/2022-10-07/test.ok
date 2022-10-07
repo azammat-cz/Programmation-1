@@ -1,0 +1,140 @@
+'a
+=> a
+'(a b c)
+=> (a b c)
+(car)
+=> Wrong number of args: car,1
+(car nil)
+=> nil
+(car nil)
+=> nil
+(car 'a)
+=> car only works on lists
+(car '(a b c))
+=> a
+(car '(a b c) '(d e f))
+=> Wrong number of args: car,1
+(cdr)
+=> Wrong number of args: cdr,1
+(cdr nil)
+=> nil
+(cdr nil)
+=> nil
+(cdr 'a)
+=> cdr only works on lists
+(cdr '(a))
+=> nil
+(cdr '(a b c))
+=> (b c)
+(cdr '(a b c) '(d e f))
+=> Wrong number of args: cdr,1
+(cons)
+=> Wrong number of args: cons,2
+(cons 'a)
+=> Wrong number of args: cons,2
+(cons 'a 'b)
+=> (a . b)
+(cons 'a nil)
+=> (a)
+(cons 'a nil)
+=> (a)
+(cons 'a '(b c))
+=> (a b c)
+(cons 'a '(b c) '(d e))
+=> Wrong number of args: cons,2
+(setq)
+=> Wrong number of args: setq,2
+(setq b)
+=> Wrong number of args: setq,2
+(setq nil nil)
+=> Trying to rebind constant
+(setq b 'foo)
+=> foo
+b
+=> foo
+(defun)
+=> Wrong number of arguments: defun,3
+(defun foo)
+=> Wrong number of arguments: defun,3
+(defun foo (x))
+=> Wrong number of arguments: defun,3
+(defun foo (x) x)
+=> foo
+(foo 'a)
+=> a
+(defun bar (x y) x y)
+=> bar
+(bar 'a 'b)
+=> b
+(bar 'a x)
+=> Symbol's definition as variable is void: x
+(cond)
+=> nil
+(cond 'a)
+=> Symbol's definition as variable is void: quote
+(cond nil)
+=> nil
+(cond nil nil)
+=> nil
+(cond (t))
+=> t
+(cond (t 'a))
+=> a
+(cond (nil 'a))
+=> nil
+(cond (nil 'a) (t 'b))
+=> b
+(cond (t nil) (t t))
+=> nil
+(if t 'a)
+=> a
+(if nil 'a)
+=> nil
+(if nil 'a 'b)
+=> b
+(if nil 'a 'b 'c)
+=> c
+(defun length (l) (if (equal l nil) nil (cons 't (length (cdr l)))))
+=> length
+(length nil)
+=> nil
+(length '(a))
+=> (t)
+(length '(a b c d e))
+=> (t t t t t)
+(let)
+=> Wrong number of arguments: let,1
+(let nil)
+=> nil
+(let ((x bad)) x)
+=> Symbol's definition as variable is void: bad
+(let ((x 'a)) x)
+=> a
+(let ((x 'a 'b)) x)
+=> Binding can only have one value
+(let ((x 'a) (y nil)) (cons x y))
+=> (a)
+(let ((x 'a) (y '(b c))) (cons x y))
+=> (a b c)
+x
+=> Symbol's definition as variable is void: x
+(let ((x 'a) (y x)) y)
+=> Symbol's definition as variable is void: x
+(let*)
+=> Wrong number of arguments: let*,1
+(let* nil)
+=> nil
+(let* ((x bad)) x)
+=> Symbol's definition as variable is void: bad
+(let* ((x 'a)) x)
+=> a
+(let* ((x 'a 'b)) x)
+=> Binding can only have one value
+(let* ((x 'a) (y nil)) (cons x y))
+=> (a)
+(let* ((x 'a) (y '(b c))) (cons x y))
+=> (a b c)
+x
+=> Symbol's definition as variable is void: x
+(let* ((x 'a) (y x)) y)
+=> a
