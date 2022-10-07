@@ -1,1 +1,1 @@
-Exercices et rendus de devoirs.
+Exercices et devoirs à rendre.
