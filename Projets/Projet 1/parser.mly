@@ -1,6 +1,6 @@
 /*
 Fichier parser.mly
-Nous définissons la grammaire du parser.
+Nous définissons la grammaire du parser en accord avec la définition du lexeur.
 */
 %{open Asyntax%}
         %token <int> INT
@@ -10,11 +10,12 @@ Nous définissons la grammaire du parser.
         %token PLUS PLUSF MINUS MINUSF MULT MULTF DIV MOD
         %token LPAREN RPAREN
         %token EOL /* Fin de ligne */
+        /* Définition des priorités (se fait grâce à l'ordre d'apparition dans la définition) */
         %left PLUS MINUS
         %left MULT DIV MOD
-        %nonassoc UMINUS UMINUSF
+        %nonassoc UMINUS UMINUSF /* Passage à l'opposé pour une expression */
         %start main
-        %type <Asyntax.exp> main
+        %type <Asyntax.exp> main /* On renvoie un AST de type exp, cf. asyntax.ml */
         %%
         main:
             expr EOL                { $1 }
