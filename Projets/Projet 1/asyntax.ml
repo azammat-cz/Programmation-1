@@ -49,4 +49,3 @@ and check_ast_float a =
 
 let check_ast a =
   if check_ast_int a then I else if check_ast_float a then F else raise BadType;;
-
