@@ -22,6 +22,3 @@ let main file =
     | _ -> print_string "Erreur de syntaxe, vérifiez que vous écrivez bien une expression arithmétique en notation infixe."; exit 1;;
 
 main Sys.argv.(1);;
-
-
-
