@@ -6,12 +6,7 @@ On lit l'AST et on renvoie le type program correspondant.
 open Asyntax
 open X86_64
 
-(* Cette fonction prend en argument un AST et renvoie la chaîne de caractère correspondant au code assembleur. *)
 (* pushq et popq version floattants *)
-(*
-let pushf reg = movsd reg !%rspMinus8 ++ subq (imm 8) !%rsp
-let popf reg = movsd !%rspBis !%reg ++ addq (imm 8) !%rsp
-*)
 let pushf reg = movsd reg (ind ~ofs:(-8) rsp) ++ subq (imm 8) !%rsp
 let popf reg = movsd (ind rsp) !%reg ++ addq (imm 8) !%rsp
 

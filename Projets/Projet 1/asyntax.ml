@@ -1,3 +1,8 @@
+(*
+Fichier asyntax.ml
+Définition du typage de l'arbre syntaxique, et fonctions de vériﬁcation de type.
+*)
+
 type exp =
   | Int of int
   | Float of float
