@@ -1,1 +1,1 @@
-Rendu de projets.
+Projets à rendre.
