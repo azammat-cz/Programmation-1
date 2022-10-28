@@ -11,8 +11,8 @@ let pushf reg = movsd reg (ind ~ofs:(-8) rsp) ++ subq (imm 8) !%rsp
 let popf reg = movsd (ind rsp) !%reg ++ addq (imm 8) !%rsp
 
 let compile ast tp =
-  let flottants = ref nop in (* Cette liste permet de stocker les éventuelles constantes flottantes dans des labels (apparemment nécessaire...) *)
-  let i = ref 0 in (* Compteur associé pour attribuer un numéro d'apparition aux flottants *)
+  let flottants = ref nop in (* Cette référence permettra de stocker les éventuelles constantes flottantes dans des labels (apparemment nécessaire...) *)
+  let i = ref 0 in (* Compteur pour attribuer un numéro d'apparition aux flottants *)
   let rec util a = match a with
   (* AST de type entier *)
   | Int(x) -> pushq (imm x)
