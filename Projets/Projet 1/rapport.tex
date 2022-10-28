@@ -16,8 +16,18 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
+\newcommand{\inlinecode}[1]{%
+  \texttt{%
+    % set flexible interword space
+    \setlength{\spaceskip}{0.5em plus 1em minus 0.1em}%
+    % add some space with not as much flexibility, but only
+    % if some space precedes
+    \ifdim\lastskip>0pt \unskip\hspace{0.5em plus 0.5em minus 0.1em}\fi
+    #1
+  }%
+}
 \title{Programmation 1}
-\author{Azammat CHARAF ZADAH}
+\author{Azammat Charaf Zadah}
 \date{}
 \date{}
 \begin{document}
@@ -28,17 +38,15 @@
 
 \section{Déroulé}
 \subsection{Premiers pas dans le monde des compilateurs}
-Au début, j'ai dû revoir ce que signifiait compiler une expression, à savoir utiliser un lexeur qui crée une liste de lexemes à partir de l'expression, qui sera parsée par - surprise ! - le parseur. Ensuite, produire une sortie à partir de l'AST généré (par exemple, le résultat de l'évaluation de l'expression, ou bien - au hasard - un programme en langage assembleur correspondant à son calcul et son affichage).
+Au début, j'ai dû revoir ce que signifiait compiler une expression, à savoir utiliser un lexeur qui crée une liste de lexemes à partir de l'expression, qui sera parsée par - surprise ! - le parseur. Ensuite, produire une sortie à partir de l'AST généré (par exemple, au hasard, un programme en langage assembleur calculant l'expression et affichant le résultat).
 \subsection{Difficultés}
 Problème, si faire une liste de lexème est plutôt accessible, faire un parseur qui respecte les priorités opératoires pour une expression en notation infixe peut être difficile ! Je commence donc à me dire, avec d'autres de mes camarades, que nous devrions aller voir du côté du GIGN qui propose des postes accessibles sans aucun diplôme, pour démarrer une nouvelle vie si je venais à me faire exclure de l'établissement pour cause de non-validation de l'UE Programmation 1.
 \subsection{\texttt{ocamllex} et \texttt{ocamlyacc}}
-C'était sans compter l'arrivée \sout{du Messie} de Clément Dumas qui nous révéla l'existence d'\texttt{ocamllex} et d'\texttt{ocamlyacc}, des outils permettant de générer des lexeurs et des parseurs rapidement, en ayant une gestion aisée de la priorité des opérations. À partir de là, il s'agissait surtout de pouvoir manipuler correctement l'AST de sortie: vérifier qu'il est bien typé, puis le cas échéant, l'utiliser pour générer un programme assembleur qui correspond au calcul et à l'affichage de l'expression (merci \texttt{x86\_64.ml}, même si j'ai dû te modifier un peu). Pour cette dernière étape, des révisions du langage assembleur se sont révélées utiles !
+C'était sans compter l'arrivée \sout{du Messie} de Clément Dumas qui nous révéla l'existence d'\texttt{ocamllex} et d'\texttt{ocamlyacc}, des outils permettant de générer des lexeurs et des parseurs rapidement, en ayant une gestion aisée de la priorité des opérations. À partir de là, il s'agissait surtout de pouvoir manipuler correctement l'AST de sortie: vérifier qu'il est bien typé, puis le cas échéant, l'utiliser pour générer un programme assembleur qui correspond au calcul de l'expression arithmétique d'entrée et à l'affichage du résultat (merci \texttt{x86\_64.ml}, même si j'ai dû te modifier un peu). Pour cette dernière étape, des révisions du langage assembleur se sont révélées utiles !
 \newpage
 \section{Résultats}
-Normalement, je respecte les consignes: après avoir exécuté la commande \texttt{make}, on a notamment l'exécutable \texttt{aritha} et ce rapport {\LaTeX}  qui sont générés. La commande \texttt{./aritha expression.exp} exécute le projet via le fichier principal \texttt{main.ml} qui utilise le fichier en argument pour effectuer la compilation de l'expression arithmetique présente dedans.\newline
-On affiche : "\texttt{OK, fichier expression.s généré.}" si la compilation a abouti.\ Sinon, un des messages d'erreur suivants:\newline "\texttt{Mauvais typage d'AST, vérifiez que vous ne mêlez pas entiers et flottants dans\newline vos opérations.}",\newline ou \newline "\texttt{Erreur de syntaxe, vérifiez que vous écrivez bien une expression arithmétique en\newline notation infixe.}"\newline
-selon le type d'erreur. \newline
-Les opérations de l'énoncé ont l'air de fonctionner, je n'ai pas fait de bonus. Différents tests sont disponibles dans le dossier \texttt{Tests}.\newline
+Chaque fichier du projet est précédé d'une en-tête dans laquelle est précisée son utilité (mais leurs noms sont déjà plutôt explicites). Je respecte, je l'espère, les consignes: après avoir exécuté la commande \texttt{make}, on a notamment l'exécutable \texttt{aritha} et ce rapport {\LaTeX}  qui sont générés. La commande \texttt{./aritha expression.exp} exécute le projet sur le fichier en argument pour effectuer la compilation de l'expression arithmetique présente dedans. On affiche : "\inlinecode{OK, fichier expression.s généré.}" si la compilation a abouti. Sinon, un des messages d'erreur suivants: "\inlinecode{Mauvais typage d'AST, vérifiez que vous ne mêlez pas entiers et flottants dans vos opérations.}", ou "\inlinecode{Erreur de syntaxe, vérifiez que vous écrivez bien une expression arithmétique en notation infixe.}" selon le type d'erreur. \par
+Les opérations de l'énoncé ont l'air de fonctionner, je n'ai pas fait de bonus. Différents tests sont disponibles dans le dossier \textsf{Tests}.\newline
 \newline
 \begin{center}
     *  *  *
