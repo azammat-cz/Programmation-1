@@ -1,6 +1,6 @@
 (*
 Fichier compiler.ml
-On lit l'AST et on renvoie le type program correspondant.
+On lit l'AST et on renvoie le type program correspondant. Il sera utilisé dans le fichier main.ml pour produire expression.s.
 *)
 
 open Asyntax
@@ -11,8 +11,8 @@ let pushf reg = movsd reg (ind ~ofs:(-8) rsp) ++ subq (imm 8) !%rsp
 let popf reg = movsd (ind rsp) !%reg ++ addq (imm 8) !%rsp
 
 let compile ast tp =
-  let flottants = ref nop in
-  let i = ref 0 in
+  let flottants = ref nop in (* Cette liste permet de stocker les éventuelles constantes flottantes dans des labels (apparemment nécessaire...) *)
+  let i = ref 0 in (* Compteur associé pour attribuer un numéro d'apparition aux flottants *)
   let rec util a = match a with
   (* AST de type entier *)
   | Int(x) -> pushq (imm x)
@@ -34,9 +34,8 @@ let compile ast tp =
   | ToInt(a) -> util a ++ cvttsd2si !%xmm0 !%rax ++ pushq !%rax
   (* Conversion entier -> flottant *)
   | ToFloat(a) -> util a ++ popq rax ++ cvtsi2sd !%rax !%xmm0
-  (* Opérateurs unaires de début d'expression *)
+  (* Passage à l'opposé *)
   | USub(a) -> util a ++ popq rbx ++ negq !%rbx ++ pushq !%rbx
-  (* Opposé d'un registre flottant *)
   | USubf(a) -> util (Mulf(Float(-1.),a))
   in let res = util ast in 
   if tp = I then
