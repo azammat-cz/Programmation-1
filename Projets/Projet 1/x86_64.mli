@@ -373,4 +373,3 @@ val rspBis: [`Q] register
 val rspMinus8: [`Q] register
 val lc: int -> [`Q] register
 val double: float -> data
-val xorps: [`Q] operand -> [`Q] operand -> text
