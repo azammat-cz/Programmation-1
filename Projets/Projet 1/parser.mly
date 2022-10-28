@@ -13,7 +13,7 @@ Nous définissons la grammaire du parser en accord avec la définition du lexeur
         /* Définition des priorités (se fait grâce à l'ordre d'apparition dans la définition) */
         %left PLUS MINUS
         %left MULT DIV MOD
-        %nonassoc UMINUS UMINUSF /* Passage à l'opposé pour une expression */
+        %nonassoc UMINUS UMINUSF /* Passage à l'opposé pour une expression (moins unaire) */
         %start main
         %type <Asyntax.exp> main /* On renvoie un AST de type exp, cf. asyntax.ml */
         %%
