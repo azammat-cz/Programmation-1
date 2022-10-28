@@ -11,7 +11,7 @@ rule token = parse
     | [' ' '\t'] { token lexbuf }     (* Passer les espaces *)
     | ['\n' ] { EOL }    (* Retour à la ligne *)
     | ['0'-'9']+ as lxm { INT(int_of_string lxm) } (* Entier *)
-    | ['0'-'9']+'.'['0'-'9']+ as lxm { FLOAT(float_of_string lxm) } (* Floattant *)
+    | ['0'-'9']+'.'['0'-'9']+ as lxm { FLOAT(float_of_string lxm) } (* Flottant *)
     | "+." { PLUSF }
     | '+' { PLUS }
     | "-." { MINUSF }
