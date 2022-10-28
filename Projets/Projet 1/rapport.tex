@@ -38,7 +38,7 @@
 
 \section{Déroulé}
 \subsection{Premiers pas dans le monde des compilateurs}
-Au début, j'ai dû revoir ce que signifiait compiler une expression, à savoir utiliser un lexeur qui crée une liste de lexemes à partir de l'expression, qui sera parsée par - surprise ! - le parseur. Ensuite, produire une sortie à partir de l'AST généré (par exemple, au hasard, un programme en langage assembleur calculant l'expression et affichant le résultat).
+Au début, j'ai dû revoir ce que signifiait compiler une expression. Si j'ai bien compris, il s'agit d'utiliser un lexeur qui, à partir de l'expression, crée une liste de lexèmes qui sera parsée par - surprise ! - le parseur (ou alors je suis déjà mal pour ce projet). Ensuite, on produit une sortie à partir de l'AST généré (par exemple, au hasard, un programme en langage assembleur calculant l'expression et affichant le résultat).
 \subsection{Difficultés}
 Problème, si faire une liste de lexème est plutôt accessible, faire un parseur qui respecte les priorités opératoires pour une expression en notation infixe peut être difficile ! Je commence donc à me dire, avec d'autres de mes camarades, que nous devrions aller voir du côté du GIGN qui propose des postes accessibles sans aucun diplôme, pour démarrer une nouvelle vie si je venais à me faire exclure de l'établissement pour cause de non-validation de l'UE Programmation 1.
 \subsection{\texttt{ocamllex} et \texttt{ocamlyacc}}
