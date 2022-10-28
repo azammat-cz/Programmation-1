@@ -333,4 +333,3 @@ let rspMinus8 = "-8(%rsp)"
 let rspBis = "(%rsp)"
 let double x = ins ".double %f" x
 let lc i = ".LC" ^ string_of_int i ^"(%rip)";;
-let xorps a b = ins "xorps %a, %a" a () b ()
