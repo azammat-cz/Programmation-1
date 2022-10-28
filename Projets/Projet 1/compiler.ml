@@ -27,7 +27,6 @@ let compile ast tp =
                   flottants := !flottants ++ label (".LC" ^ (string_of_int !i)) ++ double x;
                   movsd !%(lc !i) !%xmm0;
                 end
- (* | Addf(a1,a2) -> util a1 ++ util a2 ++ popf xmm1 ++ popf xmm0 ++ addsd !%xmm1 !%xmm0 ++ pushf !%xmm0 *)
   | Addf(a1,a2) -> util a1 ++ pushf !%xmm0 ++ util a2 ++ popf xmm1 ++ addsd !%xmm1 !%xmm0
   | Subf(a1,a2) -> util a1 ++ pushf !%xmm0 ++ util a2 ++ movsd !%xmm0 !%xmm1 ++ popf xmm0 ++ subsd !%xmm1 !%xmm0
   | Mulf(a1,a2) -> util a1 ++ pushf !%xmm0 ++ util a2 ++ popf xmm1 ++ mulsd !%xmm1 !%xmm0
