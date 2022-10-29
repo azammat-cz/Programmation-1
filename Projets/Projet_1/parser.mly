@@ -14,6 +14,7 @@ Nous définissons la grammaire du parser en accord avec la définition du lexeur
         %left PLUS MINUS
         %left MULT DIV MOD
         %nonassoc UMINUS UMINUSF /* Passage à l'opposé pour une expression (moins unaire) */
+        %nonassoc UPLUS UPLUSF
         %start main
         %type <Asyntax.exp> main /* On renvoie un AST de type exp, cf. asyntax.ml */
         %%
@@ -36,4 +37,6 @@ Nous définissons la grammaire du parser en accord avec la définition du lexeur
           | expr MOD expr           { Mod($1, $3) }
           | MINUSF expr %prec UMINUSF { USubf($2) }
           | MINUS expr %prec UMINUS { USub($2) }
+          | PLUSF expr %prec UPLUSF { $2 }
+          | PLUS expr %prec UPLUS { $2 }
         ;
